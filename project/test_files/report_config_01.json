@@ -1,0 +1,21 @@
+{
+    "report":
+    {
+        "output_format": "pdf",
+        "sections":
+        [
+            {
+                "type": "balance",
+                "account": "checking_bills",
+                "start_date": "2015-01-01",
+                "end_date": "2018-01-01"
+            },
+            {
+                "type": "balance",
+                "account": "checking_bills",
+                "start_date": "2017-01-01",
+                "end_date": "2018-01-01"
+            }
+        ]
+    }
+}

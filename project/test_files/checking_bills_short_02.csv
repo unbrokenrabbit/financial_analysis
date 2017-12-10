@@ -1,6 +1,4 @@
 Details,Posting Date,Description,Amount,Type,Balance,Check or Slip #
-DEBIT,12/05/2017,"WF HOME MTG      AUTO PAY   0471893636      WEB ID: 1562287461",-1669.25,ACH_DEBIT,8647.63,,
-DEBIT,12/04/2017,"Payment to Chase card ending in 5444 12/04",-242.46,ACCT_XFER,10316.88,,
 DEBIT,12/01/2017,"FORD MOTOR CR    FORDCREDIT                 PPD ID: 3534610001",-500.00,ACH_DEBIT,10559.34,,
 CREDIT,12/01/2017,"Online Transfer from  CHK ...4774 transaction#: 6691801518",703.00,ACCT_XFER,11059.34,,
 CREDIT,11/24/2017,"Online Transfer from  CHK ...4774 transaction#: 6676008749",703.00,ACCT_XFER,10356.34,,
