@@ -1,4 +1,6 @@
 *.sw*
 *.png
-output.pdf
+*.pdf
+
+__pycache__/
 

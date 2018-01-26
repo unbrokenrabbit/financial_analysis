@@ -1,0 +1,49 @@
+{
+    "tags":
+    [
+        {
+            "name": "bill",
+            "pattern": ".*FORD MOTOR CR.+FORDCREDIT.*"
+        },
+        {
+            "name": "bill",
+            "pattern": ".*COMMONWEALTH ED.*"
+        },
+        {
+            "name": "bill",
+            "pattern": ".*VILLAGE OF ALGON.*"
+        },
+        {
+            "name": "bill",
+            "pattern": ".*WF HOME MTG.*"
+        },
+        {
+            "name": "bill",
+            "pattern": ".*CHECK.+SafeCo.+INSPayment.*"
+        },
+        {
+            "name": "bill",
+            "pattern": ".*CHECK 857.*"
+        },
+        {
+            "name": "neutral_transfer",
+            "pattern": ".*Online Transfer from.+CHK.+4774.*"
+        },
+        {
+            "name": "neutral_payment",
+            "pattern": ".*Payment to Chase card ending in 5444.*"
+        },
+        {
+            "name": "irregular_income",
+            "pattern": ".*INTEREST PAYMENT.*"
+        },
+        {
+            "name": "irregular_income",
+            "pattern": ".*Chase QuickPay Electronic Transfer.+from.*"
+        },
+        {
+            "name": "irregular_income",
+            "pattern": ".*REMOTE ONLINE DEPOSIT.*"
+        }
+    ]
+}
