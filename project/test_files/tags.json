@@ -26,11 +26,11 @@
             "pattern": ".*CHECK 857.*"
         },
         {
-            "name": "neutral_transfer",
+            "name": "internal_transfer",
             "pattern": ".*Online Transfer from.+CHK.+4774.*"
         },
         {
-            "name": "neutral_payment",
+            "name": "internal_transfer",
             "pattern": ".*Payment to Chase card ending in 5444.*"
         },
         {
@@ -44,6 +44,78 @@
         {
             "name": "irregular_income",
             "pattern": ".*REMOTE ONLINE DEPOSIT.*"
+        },
+        {
+            "name": "regular_income",
+            "pattern": ".*KRANZE TECHNOLOG QUICKBOOKS.*"
+        },
+        {
+            "name": "regular_income",
+            "pattern": ".*CL SCHOOL DISTRI PAYROLL.*"
+        },
+        {
+            "name": "internal_transfer",
+            "pattern": ".*Online Transfer to.+MMA.+\\.\\.\\.6356.*"
+        },
+        {
+            "name": "internal_transfer",
+            "pattern": ".*Online Transfer to.+CHK.+\\.\\.\\.4717.*"
+        },
+        {
+            "name": "internal_transfer",
+            "pattern": ".*Payment to Chase card ending in 2121.*"
+        },
+        {
+            "name": "internal_transfer",
+            "pattern": ".*Payment to Chase card ending in 0545.*"
+        },
+        {
+            "name": "internal_transfer",
+            "pattern": ".*Online Transfer from MMA \\.\\.\\.6356.*"
+        },
+        {
+            "name": "misc_spending",
+            "pattern": ".*ATM WITHDRAWAL.*"
+        },
+        {
+            "name": "irregular_income",
+            "pattern": ".*ATM CHECK DEPOSIT.*"
+        },
+        {
+            "name": "bill",
+            "pattern": ".*FORD CREDIT.+FORDCREDIT.*"
+        },
+        {
+            "name": "misc_spending",
+            "pattern": ".*NON-CHASE ATM WITHDRAW.*"
+        },
+        {
+            "name": "misc_spending",
+            "pattern": ".*Chase QuickPay Electronic Transfer.+to CLUTTER FREE BY CHRISSY.*"
+        },
+        {
+            "name": "misc_spending",
+            "pattern": ".*QuickPay with Zelle payment to.*"
+        },
+        {
+            "name": "misc_spending",
+            "pattern": ".*Chase QuickPay Electronic Transfer.+to Danielle.*"
+        },
+        {
+            "name": "misc_spending",
+            "pattern": ".*WITHDRAWAL.*"
+        },
+        {
+            "name": "fee",
+            "pattern": ".*INSUFFICIENT FUNDS FEE.*"
+        },
+        {
+            "name": "misc_spending",
+            "pattern": ".*PAYPAL.*"
+        },
+        {
+            "name": "irregular_income",
+            "pattern": ".*ATM CASH DEPOSIT.*"
         }
     ]
 }
