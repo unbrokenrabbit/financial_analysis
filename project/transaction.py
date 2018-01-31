@@ -4,8 +4,6 @@ import time
 import datetime
 import tag
 from pymongo import MongoClient
-#from pymongo.objectid import ObjectId
-#from pymongo import objectid
 from bson.objectid import ObjectId
 
 class TransactionManager:
@@ -34,25 +32,12 @@ class TransactionManager:
     
         columnsLine = inputFile.readline().strip()
         inputFileFormat = self.determineInputFileFormat( columnsLine )
-        #columns = columnsLine.split( ',' )
 
         rows = []
         for line in inputFile:
             values = self.extractValuesFromInputLine( line.strip(), inputFileFormat )
-            #values = line.split( ',' )
-    
             row = self.translateValues( values, inputFileFormat )
-            #row = self.translateLine( line, columns, inputFileFormat )
-            print( 'translated row:', row )
-
-            #row = dict()
-            #for index in range( 0, len( columns ) ):
-            #    translatedColumn = self.translateColumn( columns[ index ], _format )
-            #    translatedValue = self.translateValue( translatedColumn, values[ index ], _format )
-            #    row[ translatedColumn ] = translatedValue
-    
             row[ "account" ] = _account
-    
             rows.append( row )
     
         mongoClient = MongoClient( 'financial-analysis-mongodb' )
@@ -69,19 +54,13 @@ class TransactionManager:
                 upsert = True
             )
 
-            #print( 'row:   ', row )
-            #print( 'result:', result )
-
             if( result[ 'updatedExisting' ] ):
                 updatedTransactionCount += 1
             else:
                 newTransactionCount += 1
 
-        print( 'new transactions:    ', newTransactionCount )
-        print( 'updated transactions:', updatedTransactionCount )
-
-        tagger = tag.Tagger()
-        tagger.applyTags()
+        tagManager = tag.TagManager()
+        tagManager.applyTags()
 
     def extractValuesFromInputLine( self, _line, _inputFileFormat ):
         line = _line
@@ -146,7 +125,6 @@ class TransactionManager:
 
         # Balance
         balance = _values[ 5 ].strip()
-        print( 'values[5]: [' + balance + ']' )
         if( balance != '' ):
             translatedValues[ self.TRANSACTION_ELEMENT_KEY_BALANCE ] = float( balance )
 
@@ -189,7 +167,6 @@ class TransactionManager:
         
         return translatedValues
 
-
     def determineInputFileFormat( self, _columnsLine ):
         inputFileFormat = 'invalid' 
         if( _columnsLine == self.formatLines[ self.TRANSACTION_FORMAT_CSV_CHASE_CHECKING ] ):
@@ -198,56 +175,7 @@ class TransactionManager:
             inputFileFormat = self.TRANSACTION_FORMAT_CSV_CHASE_CREDIT
 
         return inputFileFormat
-            
-    #def determineFormat( self, _columns ):
-    #    transactionFormat = 'invalid'
-    #    if( self.isChaseCsvCheckingAlphaFormat( _columns ) ):
-    #        transactionFormat = 'chase-csv-checking-alpha'
-    #    elif( self.isChaseCsvCreditAlphaFormat( _columns ) ):
-    #        transactionFormat = 'chase-csv-credit-alpha'
-    #        
-    #    return transactionFormat
-
-    #def isChaseCsvCheckingAlphaFormat( self, _columns ):
-    #    chaseCsvCheckingAlphaColumns = []
-    #    chaseCsvCheckingAlphaColumns.append( 'Details' )
-    #    chaseCsvCheckingAlphaColumns.append( 'Amount' )
-    #    chaseCsvCheckingAlphaColumns.append( 'Description' )
-    #    chaseCsvCheckingAlphaColumns.append( 'Posting Date' )
-    #    chaseCsvCheckingAlphaColumns.append( 'Type' )
-    #    chaseCsvCheckingAlphaColumns.append( 'Balance' )
-    #    chaseCsvCheckingAlphaColumns.append( 'Check or Slip #' )
-
-    #    isChaseCsvCheckingAlphaFormat = False
-    #    print( 'length', chaseCsvCheckingAlphaColumns, ':', len( chaseCsvCheckingAlphaColumns ) )
-    #    print( 'length', _columns, ':', len( _columns ) )
-    #    if( ( len( chaseCsvCheckingAlphaColumns ) == len( _columns ) ) and ( len( _columns ) > 0  ) ):
-    #        isChaseCsvCheckingAlphaFormat = True
-    #        for chaseCsvCheckingAlphaColumn in chaseCsvCheckingAlphaColumns:
-    #            print( chaseCsvCheckingAlphaColumn, 'in', _columns, ':', ( chaseCsvCheckingAlphaColumn in _columns ) )
-    #            isChaseCsvCheckingAlphaFormat = isChaseCsvCheckingAlphaFormat and ( chaseCsvCheckingAlphaColumn in _columns )
-
-    #    return isChaseCsvCheckingAlphaFormat
-
-    #def isChaseCsvCreditAlphaFormat( self, _columns ):
-    #    chaseCsvCreditAlphaColumns = []
-    #    chaseCsvCreditAlphaColumns.append( 'Type' )
-    #    chaseCsvCreditAlphaColumns.append( 'Trans Date' )
-    #    chaseCsvCreditAlphaColumns.append( 'Post Date' )
-    #    chaseCsvCreditAlphaColumns.append( 'Description' )
-    #    chaseCsvCreditAlphaColumns.append( 'Amount' )
-
-    #    print( 'length', chaseCsvCreditAlphaColumns, ':', len( chaseCsvCreditAlphaColumns ) )
-    #    print( 'length', _columns, ':', len( _columns ) )
-
-    #    isChaseCsvCreditAlphaFormat = False
-    #    if( ( len( chaseCsvCreditAlphaColumns ) == len( _columns ) ) and ( len( _columns ) > 0 ) ):
-    #        isChaseCsvCreditAlphaFormat = True
-    #        for chaseCsvCreditAlphaColumn in chaseCsvCreditAlphaColumns:
-    #            isChaseCsvCreditAlphaFormat = isChaseCsvCreditAlphaFormat and ( chaseCsvCreditAlphaColumn in _columns )
-
-    #    return isChaseCsvCreditAlphaFormat
-
+    
     def translateColumn( self, _column, _format ):
         translatedColumn = 'invalid'
         if( _format == 'chase_csv_checking_alpha' ):
@@ -288,8 +216,6 @@ class TransactionManager:
         return translatedColumn
 
     def translateValue( self, _column, _value, _format ):
-        #import time
-        #import datetime
     
         value = _value
         if( _column == 'posting_date' ):
@@ -308,10 +234,5 @@ class TransactionManager:
         mongoClient = MongoClient( 'financial-analysis-mongodb' )
         db = mongoClient.financial_analysis_db
     
-        print( 'deleting transaction', _transactionId )
-
         result = db.test_transactions.remove( { "_id": ObjectId( _transactionId ) } )
-
-        print( 'result:', result )
-        
 

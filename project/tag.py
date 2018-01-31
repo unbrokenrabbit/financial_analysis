@@ -4,7 +4,7 @@ import json
 import re
 from pymongo import MongoClient
 
-class Tagger:
+class TagManager:
     
     def importTags( self, _tagsFile ):
         print( 'importing tags' )
@@ -33,7 +33,7 @@ class Tagger:
         mongoClient = MongoClient( 'financial-analysis-mongodb' )
         db = mongoClient.financial_analysis_db       
 
-        db.test_transactions.update(
+        db.test_transactions.update_many(
             {},
             {
                 '$unset':
