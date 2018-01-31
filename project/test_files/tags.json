@@ -2,120 +2,1168 @@
     "tags":
     [
         {
-            "name": "bill",
-            "pattern": ".*FORD MOTOR CR.+FORDCREDIT.*"
+            "name": "expense_bill_car",
+            "pattern": ".*FORD MOTOR CR.+FORDCREDIT.*",
+            "account": "checking_bills",
+            "amount_sign": "-"
         },
         {
-            "name": "bill",
-            "pattern": ".*COMMONWEALTH ED.*"
+            "name": "expense_bill_utility_power",
+            "pattern": ".*COMMONWEALTH ED.*",
+            "account": "checking_bills",
+            "amount_sign": "-"
         },
         {
-            "name": "bill",
-            "pattern": ".*VILLAGE OF ALGON.*"
+            "name": "expense_bill_utility_water",
+            "pattern": ".*VILLAGE OF ALGON.*",
+            "account": "checking_bills",
+            "amount_sign": "-"
         },
         {
-            "name": "bill",
-            "pattern": ".*WF HOME MTG.*"
+            "name": "expense_bill_mortgage",
+            "pattern": ".*WF HOME MTG.*",
+            "account": "checking_bills",
+            "amount_sign": "-"
         },
         {
-            "name": "bill",
-            "pattern": ".*CHECK.+SafeCo.+INSPayment.*"
+            "name": "expense_bill_insurance_auto_home",
+            "pattern": ".*CHECK.+SafeCo.+INSPayment.*",
+            "account": "checking_bills",
+            "amount_sign": "-"
         },
         {
-            "name": "bill",
-            "pattern": ".*CHECK 857.*"
+            "name": "expense_bill_preschool",
+            "pattern": ".*CHECK 857.*",
+            "account": "checking_bills",
+            "amount_sign": "-"
         },
         {
-            "name": "internal_transfer",
-            "pattern": ".*Online Transfer from.+CHK.+4774.*"
+            "name": "transfer_internal",
+            "pattern": ".*Online Transfer from.+CHK.+4774.*",
+            "account": "checking_bills",
+            "amount_sign": "+"
         },
         {
-            "name": "internal_transfer",
-            "pattern": ".*Payment to Chase card ending in 5444.*"
+            "name": "transfer_internal",
+            "pattern": ".*Payment to Chase card ending in 5444.*",
+            "account": "checking_bills",
+            "amount_sign": "-"
         },
         {
-            "name": "irregular_income",
-            "pattern": ".*INTEREST PAYMENT.*"
+            "name": "transfer_internal",
+            "pattern": ".*PAYMENT TO CHASE CARD ENDING IN 5444.*",
+            "account": "checking_bills",
+            "amount_sign": "-"
         },
         {
-            "name": "irregular_income",
-            "pattern": ".*Chase QuickPay Electronic Transfer.+from.*"
+            "name": "transfer_internal",
+            "pattern": ".*PAYMENT TO CHASE CARD ENDING IN 0545.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
         },
         {
-            "name": "irregular_income",
-            "pattern": ".*REMOTE ONLINE DEPOSIT.*"
+            "name": "transfer_internal",
+            "pattern": ".*ONLINE TRANSFER FROM.+\\.\\.\\.4774.*",
+            "account": "checking_bills",
+            "amount_sign": "+"
         },
         {
-            "name": "regular_income",
-            "pattern": ".*KRANZE TECHNOLOG QUICKBOOKS.*"
+            "name": "transfer_internal",
+            "pattern": ".*ONLINE TRANSFER FROM.+\\.\\.\\.6356.*",
+            "account": "checking_spending",
+            "amount_sign": "+"
         },
         {
-            "name": "regular_income",
-            "pattern": ".*CL SCHOOL DISTRI PAYROLL.*"
+            "name": "income_misc",
+            "pattern": ".*INTEREST PAYMENT.*",
+            "account": "checking_bills",
+            "amount_sign": "+"
         },
         {
-            "name": "internal_transfer",
-            "pattern": ".*Online Transfer to.+MMA.+\\.\\.\\.6356.*"
+            "name": "income_misc",
+            "pattern": ".*Chase QuickPay Electronic Transfer.+from.*",
+            "account": "checking_bills",
+            "amount_sign": "+"
         },
         {
-            "name": "internal_transfer",
-            "pattern": ".*Online Transfer to.+CHK.+\\.\\.\\.4717.*"
+            "name": "income_misc",
+            "pattern": ".*REMOTE ONLINE DEPOSIT.*",
+            "account": "checking_bills",
+            "amount_sign": "+"
         },
         {
-            "name": "internal_transfer",
-            "pattern": ".*Payment to Chase card ending in 2121.*"
+            "name": "income_predictable",
+            "pattern": ".*KRANZE TECHNOLOG QUICKBOOKS.*",
+            "account": "checking_spending",
+            "amount_sign": "+"
         },
         {
-            "name": "internal_transfer",
-            "pattern": ".*Payment to Chase card ending in 0545.*"
+            "name": "income_predictable",
+            "pattern": ".*CL SCHOOL DISTRI PAYROLL.*",
+            "account": "checking_spending",
+            "amount_sign": "+"
         },
         {
-            "name": "internal_transfer",
-            "pattern": ".*Online Transfer from MMA \\.\\.\\.6356.*"
+            "name": "transfer_internal",
+            "pattern": ".*Online Transfer to.+MMA.+\\.\\.\\.6356.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
         },
         {
-            "name": "misc_spending",
-            "pattern": ".*ATM WITHDRAWAL.*"
+            "name": "transfer_internal",
+            "pattern": ".*Online Transfer to.+CHK.+\\.\\.\\.4717.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
         },
         {
-            "name": "irregular_income",
-            "pattern": ".*ATM CHECK DEPOSIT.*"
+            "name": "transfer_internal",
+            "pattern": ".*Payment to Chase card ending in 2121.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
         },
         {
-            "name": "bill",
-            "pattern": ".*FORD CREDIT.+FORDCREDIT.*"
+            "name": "transfer_internal",
+            "pattern": ".*Payment to Chase card ending in 0545.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
         },
         {
-            "name": "misc_spending",
-            "pattern": ".*NON-CHASE ATM WITHDRAW.*"
+            "name": "transfer_internal",
+            "pattern": ".*Online Transfer from MMA \\.\\.\\.6356.*",
+            "account": "checking_spending",
+            "amount_sign": "+"
         },
         {
-            "name": "misc_spending",
-            "pattern": ".*Chase QuickPay Electronic Transfer.+to CLUTTER FREE BY CHRISSY.*"
+            "name": "transfer_internal",
+            "pattern": ".*ONLINE TRANSFER TO.*CHK.*\\.\\.\\.4717.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
         },
         {
-            "name": "misc_spending",
-            "pattern": ".*QuickPay with Zelle payment to.*"
+            "name": "transfer_internal",
+            "pattern": ".*ONLINE TRANSFER TO.*MMA.*\\.\\.\\.6356.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
         },
         {
-            "name": "misc_spending",
-            "pattern": ".*Chase QuickPay Electronic Transfer.+to Danielle.*"
+            "name": "expense_misc",
+            "pattern": ".*ATM WITHDRAWAL.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
         },
         {
-            "name": "misc_spending",
-            "pattern": ".*WITHDRAWAL.*"
+            "name": "income_misc",
+            "pattern": ".*ATM CHECK DEPOSIT.*",
+            "account": "checking_spending",
+            "amount_sign": "+"
         },
         {
-            "name": "fee",
-            "pattern": ".*INSUFFICIENT FUNDS FEE.*"
+            "name": "expense_bill",
+            "pattern": ".*FORD CREDIT.+FORDCREDIT.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
         },
         {
-            "name": "misc_spending",
-            "pattern": ".*PAYPAL.*"
+            "name": "expense_bill_insurance_auto_home",
+            "pattern": ".*CHECK.+SafeCo.+INSPayment.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
         },
         {
-            "name": "irregular_income",
-            "pattern": ".*ATM CASH DEPOSIT.*"
+            "name": "expense_misc",
+            "pattern": ".*NON-CHASE ATM WITHDRAW.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*Chase QuickPay Electronic Transfer.+to CLUTTER FREE BY CHRISSY.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*QuickPay with Zelle payment to.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*Chase QuickPay Electronic Transfer.+to Danielle.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*WITHDRAWAL.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_fee",
+            "pattern": ".*INSUFFICIENT FUNDS FEE.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*PAYPAL.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "income_misc",
+            "pattern": ".*ATM CASH DEPOSIT.*",
+            "account": "checking_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "TARGET.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_medical",
+            "pattern": ".*CHECK 1312.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "income_misc",
+            "pattern": ".*INTEREST PAYMENT.*",
+            "account": "checking_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "income_misc",
+            "pattern": ".*REMOTE ONLINE DEPOSIT.*",
+            "account": "checking_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1413.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1425.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1426.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1427.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1428.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1429.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1430.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1431.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1432.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1433.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1434.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1436.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1437.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1438.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1439.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1440.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1441.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK.+APSA/DPSF.+CHECKPAYMT.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1443.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1444.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1445.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1447.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1448.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1449.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1450.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1451.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1453.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1454.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1455.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK.+FSF/FFRF.+CHECKPAYMT.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1457.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1458.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1459.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1460.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1461.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1462.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1463.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1464.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1465.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1466.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1467.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1468.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1469.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1470.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1471.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1472.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1473.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1474.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1476.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1477.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1478.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1479.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1480.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1481.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1482.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1483.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1484.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1485.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1486.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1487.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1488.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1489.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1490.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1302.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1303.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1304.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1305.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1306.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1307.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1308.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1309.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1310.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1311.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*CHECK 1313.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_home_repair",
+            "pattern": ".*CHECK 1314-remove.*",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_bill",
+            "pattern": "HLU.Hulu.*",
+            "account": "credit_bills",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_bill",
+            "pattern": "AT.amp;T.BILL PAYMENT.*",
+            "account": "credit_bills",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "MONTARRA GRILL",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "TACO BELL.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_groceries",
+            "pattern": "JEWEL.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_fuel_auto",
+            "pattern": "THORNTONS.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "POTBELLY.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "AMAZON MKTPLACE PMTS",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "income_misc",
+            "pattern": "AMAZON MKTPLACE PMTS",
+            "account": "credit_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "COUNTRY DONUTS",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "AMC LAKE IN HILLS.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_groceries",
+            "pattern": "CRYSTAL LAKE HEALTH FOODS",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "SPIRIT HALLOWEEN.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "FANDANGO.COM",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "NAF NAF GRILL.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "MORETTIS RISTORANTE.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "CHUBBY'S",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "SHORT STACKS LTD",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_media",
+            "pattern": "Amazon Digital Svcs",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_groceries",
+            "pattern": "FRESH THYME.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_media",
+            "pattern": "Amazon Video On Demand",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "WALGREENS\\.COM PHOTO.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "BURGERFI-GLENVIEW",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "SHUTTERFLY",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "USPS PO.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_comics",
+            "pattern": "BEYOND TOMORROW COMICS",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_groceries",
+            "pattern": "TRADER JOE'S.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "Amazon\\.com",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "CHIPOTLE.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_clothing",
+            "pattern": "EXPRESS\\.COM",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_clothing",
+            "pattern": "OLD NAVY.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "income_refund",
+            "pattern": "OLD NAVY.*",
+            "account": "credit_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "expense_hardware",
+            "pattern": "THE HOME DEPOT.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "THE ALGONQUIN SUB SHOP",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_clothing",
+            "pattern": "carters Inc\\.",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "TOMS FARM MARKET FFB",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "PORTILLOS HOT DOGS.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_hardware",
+            "pattern": "LOWES.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "MCDONALD'S.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "STARBUCKS STORE.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "PANERA BREAD.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "PAYPAL.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "STEAK-N-SHAKE.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "THE TEXAN BBQ",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "5GUYS.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "income_refund",
+            "pattern": "EXPRESS.*",
+            "account": "credit_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "expense_clothing",
+            "pattern": "DSW ALGONQUIN COMMONS",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "HOULIHANS.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_media",
+            "pattern": "PLAYSTATION NETWORK",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "income_refund",
+            "pattern": "TARGET.*",
+            "account": "credit_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "expense_fuel_auto",
+            "pattern": "SPEEDWAY.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "THE UPS STORE.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_clothing",
+            "pattern": "JCPENNEY\\.COM",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "income_refund",
+            "pattern": "JCPENNEY\\.COM",
+            "account": "credit_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "HAUTLK RACK.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "JIMMY JOHNS.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "transfer_internal",
+            "pattern": "Payment Thank You - Web",
+            "account": "credit_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "expense_media",
+            "pattern": "VISIT PATREON\\.COM/INFO",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_bill_swimming",
+            "pattern": "BEAR PADDLE SWIM SCHOOL.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_groceries",
+            "pattern": "MARIANOS.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_media",
+            "pattern": "Audible US",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "COST PLUS WLD.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "CITY OF LAKE GENEVA",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "WALGREENS.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "THE PAMPERED CHEF",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "TIMBER RIDGE.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "Simple Cafe - Lake Geneva",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "CULVER'S.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": ".*EGG HARBOR.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_",
+            "pattern": "",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "income_refund",
+            "pattern": "HAUTLK RACK.*",
+            "account": "credit_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "income_refund",
+            "pattern": "HANES.COM",
+            "account": "credit_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "income_refund",
+            "pattern": "MICHAELS STORES.*",
+            "account": "credit_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "income_refund",
+            "pattern": "A EAGLE OUTFTR.*",
+            "account": "credit_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "income_refund",
+            "pattern": "LEMS SHOES.*",
+            "account": "credit_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "income_refund",
+            "pattern": "Amazon\\.com",
+            "account": "credit_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "income_refund",
+            "pattern": "TOYS R US.*",
+            "account": "credit_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "income_refund",
+            "pattern": "TOYSRUS-BABIESRUS\\.COM",
+            "account": "credit_spending",
+            "amount_sign": "+"
+        },
+        {
+            "name": "transfer_internal",
+            "pattern": "Payment Thank You - Web",
+            "account": "credit_bills",
+            "amount_sign": "+"
         }
     ]
 }

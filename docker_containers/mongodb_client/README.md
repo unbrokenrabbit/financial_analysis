@@ -1,0 +1,1 @@
+mongo financial-analysis-mongodb/financial_analysis_db

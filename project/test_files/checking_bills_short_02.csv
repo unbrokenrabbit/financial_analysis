@@ -1,6 +1,0 @@
-Details,Posting Date,Description,Amount,Type,Balance,Check or Slip #
-DEBIT,12/01/2017,"FORD MOTOR CR    FORDCREDIT                 PPD ID: 3534610001",-500.00,ACH_DEBIT,10559.34,,
-CREDIT,12/01/2017,"Online Transfer from  CHK ...4774 transaction#: 6691801518",703.00,ACCT_XFER,11059.34,,
-CREDIT,11/24/2017,"Online Transfer from  CHK ...4774 transaction#: 6676008749",703.00,ACCT_XFER,10356.34,,
-CREDIT,11/17/2017,"Online Transfer from  CHK ...4774 transaction#: 6658514902",703.00,ACCT_XFER,9653.34,,
-CREDIT,11/15/2017,"INTEREST PAYMENT",0.07,MISC_CREDIT,8950.34,,

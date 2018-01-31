@@ -23,22 +23,76 @@ class Tagger:
             document = {}
             document[ 'name' ] = tag[ 'name' ]
             document[ 'pattern' ] = tag[ 'pattern' ]
+            document[ 'account' ] = tag[ 'account' ]
+            document[ 'amount_sign' ] = tag[ 'amount_sign' ]
             db.tags.insert( document )
     
         self.applyTags()
     
+    def stripTags( self ):
+        mongoClient = MongoClient( 'financial-analysis-mongodb' )
+        db = mongoClient.financial_analysis_db       
+
+        db.test_transactions.update(
+            {},
+            {
+                '$unset':
+                {
+                    'tag': ''
+                }
+            }
+        )
+
     def applyTags( self ):
         print( 'applying tags' )
+    
+        self.stripTags()
+
+        mongoClient = MongoClient( 'financial-analysis-mongodb' )
+        db = mongoClient.financial_analysis_db
+
+        tags = db.tags.find()
+
+        for tag in tags:
+            tagName = tag[ 'name' ]
+            tagPattern = tag[ 'pattern' ]
+            tagAccount = tag[ 'account' ]
+            tagAmountSign = tag[ 'amount_sign' ]
+
+            findClause = {}
+            findClause[ 'description' ] = { '$regex': tagPattern }
+            findClause[ 'account' ] = tagAccount
+
+            if( tagAmountSign == '+' ):
+                findClause[ 'amount' ] = { '$gte': 0 }
+            elif( tagAmountSign == '-' ):
+                findClause[ 'amount' ] = { '$lte': 0 }
+
+            results = db.test_transactions.update(
+                findClause,
+                {
+                    "$set":
+                    {
+                        "tag": tagName
+                    }
+                },
+                multi=True
+            )
+
+        self.displayTagStatistics()
+
+    def applyTags_old( self ):
+        print( 'applying tags (old)' )
     
         mongoClient = MongoClient( 'financial-analysis-mongodb' )
         db = mongoClient.financial_analysis_db
     
         tags = db.tags.find()
     
-        transactions = db.test_transactions.find( {}, { 'description': 1 } )
+        transactions = db.test_transactions.find( {}, { 'description': 1, 'amount': 1 } )
         for transaction in transactions:
-            print( 'transaction:', transaction )
             description = transaction[ 'description' ]
+            amount = float( transaction[ 'amount' ] )
     
             tags.rewind()
             isMatch = False
@@ -74,12 +128,13 @@ class Tagger:
             print( 'untagged transactions' )
             print( '-----------------------------------' )
             for transaction in statistics[ 'untagged_transactions' ]:
+                serialNumber = transaction[ '_id' ]
                 description = transaction[ 'description' ]
-                timestamp = time.localtime( transaction[ 'posting_date' ] )
+                timestamp = time.localtime( transaction[ 'date' ] )
                 date = time.strftime( '%Y-%m-%d', timestamp )
                 account = transaction[ 'account' ]
                 amount = transaction[ 'amount' ]
-                print( account, '$' + amount, date, '[' + description + ']' )
+                print( serialNumber, account, date, '$' + str( amount ), '[' + description + ']' )
     
     def collectTagStatistics( self ):
         mongoClient = MongoClient( 'financial-analysis-mongodb' )
@@ -87,22 +142,25 @@ class Tagger:
     
         statistics = {}
     
-        untaggedTransactions = []
-        transactions = db.test_transactions.find(
-            {},
+        findClause = {
+            'tag':
             {
-                'description': 1,
-                'tag': 1,
-                'posting_date':1,
-                'amount': 1,
-                'account': 1,
-                '_id': 0
+                '$exists': False
             }
-        )
-        for transaction in transactions:
-            if( transaction[ 'tag' ] == '' ):
-                untaggedTransactions.append( transaction )
-    
+        }
+        resultFilter = {
+            'description': 1,
+            'tag': 1,
+            'date':1,
+            'amount': 1,
+            'account': 1
+        }
+        untaggedTransactionsCursor = db.test_transactions.find( findClause, resultFilter )
+        untaggedTransactions = []
+        untaggedTransactionCount = 0
+        for untaggedTransaction in untaggedTransactionsCursor:
+            untaggedTransactions.append( untaggedTransaction )
+
         totalTransactionCount = db.test_transactions.find().count()
     
         statistics[ 'total_transaction_count' ] = totalTransactionCount
