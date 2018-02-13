@@ -4,6 +4,7 @@ from subprocess import call
 import json
 from .section import income_vs_expenses
 from .section import balance
+from . import utilities
 
 class ReportManager:
 
@@ -18,7 +19,8 @@ class ReportManager:
         report = reportConfig[ 'report' ]
     
         # Create a workspace for temporary files
-        workspaceDirectory = 'temp'
+        utils = utilities.Utilities()
+        workspaceDirectory = utils.getWorkspaceDirectory()
         call( [ 'mkdir', workspaceDirectory ] )
     
         latexFilenamePrefix = 'report'
@@ -46,7 +48,7 @@ class ReportManager:
     
         call( [ 'pdflatex', '-output-format=pdf', ( '-output-directory=' + workspaceDirectory ), latexFilename ] )
         call( [ 'mv', ( workspaceDirectory + '/' + latexFilenamePrefix + '.pdf' ), _outputFile ] )
-        call( [ 'rm', '-r', workspaceDirectory ] )
+        #call( [ 'rm', '-r', workspaceDirectory ] )
 
     def writeDocumentHeader( self, _outputFile ):
         _outputFile.write( '\\documentclass{article}\n' )
@@ -56,7 +58,4 @@ class ReportManager:
 
     def writeDocumentFooter( self, _outputFile ):
         _outputFile.write( '\\end{document}\n' )
-    
-class InvalidResultException( Exception ):
-    pass
 

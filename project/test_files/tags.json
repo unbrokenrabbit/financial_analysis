@@ -1544,7 +1544,7 @@
             "amount_sign": "-"
         },
         {
-            "name": "expense_misc",
+            "name": "expense_dining",
             "pattern": "DD/BR.*",
             "account": "credit_spending",
             "amount_sign": "-"
@@ -1586,7 +1586,7 @@
             "amount_sign": "-"
         },
         {
-            "name": "expense_misc",
+            "name": "expense_dining",
             "pattern": "SUMMER HOUSE SANTAMONICA",
             "account": "credit_spending",
             "amount_sign": "-"
@@ -1715,6 +1715,96 @@
             "name": "expense_medical",
             "pattern": "CHECK 1315.*",
             "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "GALATIS HIDEAWAY",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_medical",
+            "pattern": "N SHORE FPA OTOLOGYEV.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "312 CHICAGO",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "ABM PARKING 60 E RANDOLPH",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_auto",
+            "pattern": ".*ILSecofStateSFee",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_auto",
+            "pattern": ".*SOSINTERNET VEHICLE",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_clothing",
+            "pattern": ".*SOSINTERNET VEHICLE",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_clothing",
+            "pattern": "KOHL'S.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "LA TASCA TAPAS",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "FRESH FLOWER MARKET",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "VILLAGE SQUIRE",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "ROSATIS PIZZA.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "Gibsons Bar- 8559073168",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_home_repair",
+            "pattern": "CHECK 1317  ",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_bill_preschool",
+            "pattern": "CHECK 858  ",
+            "account": "checking_bills",
             "amount_sign": "-"
         }
     ]

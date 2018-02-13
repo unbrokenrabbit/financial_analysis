@@ -69,3 +69,35 @@ class DateManager:
             month = month + 1
 
         return datetime.datetime( year, month, day )
+
+    def monthAsString( self, _monthIndex ):
+        month = 'ERROR'
+        if( _monthIndex == 1 ):
+            month = 'JAN'
+        elif( _monthIndex == 2 ):
+            month = 'FEB'
+        elif( _monthIndex == 3 ):
+            month = 'MAR'
+        elif( _monthIndex == 4 ):
+            month = 'APR'
+        elif( _monthIndex == 5 ):
+            month = 'MAY'
+        elif( _monthIndex == 6 ):
+            month = 'JUN'
+        elif( _monthIndex == 7 ):
+            month = 'JUL'
+        elif( _monthIndex == 8 ):
+            month = 'AUG'
+        elif( _monthIndex == 9 ):
+            month = 'SEP'
+        elif( _monthIndex == 10 ):
+            month = 'OCT'
+        elif( _monthIndex == 11 ):
+            month = 'NOV'
+        elif( _monthIndex == 12 ):
+            month = 'DEC'
+        else:
+            raise IndexError( 'Invalid month:', _monthIndex )
+
+        return month
+     
