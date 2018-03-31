@@ -1806,6 +1806,162 @@
             "pattern": "CHECK 858  ",
             "account": "checking_bills",
             "amount_sign": "-"
+        },
+        {
+            "name": "expense_medical",
+            "pattern": "CHECK 1320  ",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_medical",
+            "pattern": "CHECK 1321  ",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_medical",
+            "pattern": "CHECK 1319  ",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "CHECK 1318  ",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_medical",
+            "pattern": "CHECK 1322  ",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_medical",
+            "pattern": "CHECK 1323  ",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_medical",
+            "pattern": "CHECK 1322  ",
+            "account": "checking_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_bill_preschool",
+            "pattern": "CHECK 859  ",
+            "account": "checking_bills",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "UNCOMMONGOODS",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "KIM AND PATTYS CAFE",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "DOG WALK",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "NIKOS POINTES SALOON",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_fuel_auto",
+            "pattern": ".*CIRCLE K.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "SCHNUCKS CULINARIA",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "AmazonPrime Membership",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "WESTIN ST LOUIS",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*ILSecretaryofState.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "BENEDICT'S LA STRATA",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_clothing",
+            "pattern": ".*CUPSHE",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_clothing",
+            "pattern": "JCPENNEY.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "POPEYE'S.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": "MANTRA RESTAURANT",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "Scholastic Reading Club",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": "INTERPARK.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_dining",
+            "pattern": ".*KUMA S CORNER.*",
+            "account": "credit_spending",
+            "amount_sign": "-"
+        },
+        {
+            "name": "expense_misc",
+            "pattern": ".*Stretch-n-Grow of McH",
+            "account": "credit_bills",
+            "amount_sign": "-"
         }
     ]
 }

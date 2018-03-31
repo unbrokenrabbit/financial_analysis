@@ -212,26 +212,8 @@ class Manager:
             label = dateManager.monthAsString( startDate.month ) + '-' + str( startDate.year )
             labels.append( label )
     
-        #dateManager = dates.DateManager()
-
-        #pyplot.gca().xaxis.set_major_formatter( matplotlib.dates.DateFormatter( dateManager.getDateFormat() ) )
-        #pyplot.gca().xaxis.set_major_locator( matplotlib.dates.DayLocator() )
-    
         pyplot.plot( x, y )
-        #pyplot.gcf().autofmt_xdate()
-    
-        #firstMonth = _months[ 0 ][ 'start' ]
-        #lastMonth = _months[ -1 ][ 'start' ]
-        #pyplot.gca().set_xlim( [ firstMonth, lastMonth ] )
-        #pyplot.gca().set_xticks( [ firstMonth, lastMonth ] )
         pyplot.xticks( x, labels )
-    
-        #pyplot.gca().set_ylim( [ 0, 12000 ] )
-        #pyplot.gca().set_yticks( [ 0, 3000, 6000, 9000, 12000 ] )
-
-
-
-
         pyplot.ylabel( 'net balance' )
         
         utils = utilities.Utilities()

@@ -103,28 +103,36 @@ class TransactionManager:
         # DEBUG
         print( 'values:', _values )
 
-        # Details
         details = _values[ 0 ]
+        postingDate = _values[ 1 ]
+        description = _values[ 2 ]
+        amount = _values[ 3 ]
+        balance = _values[ 5 ].strip()
+
+        # Details
         if( details == 'DEBIT' ):
             translatedValues[ self.TRANSACTION_ELEMENT_KEY_TYPE ] = self.TRANSACTION_ELEMENT_TYPE_INCOME 
         elif( details == 'CREDIT' ):
             translatedValues[ self.TRANSACTION_ELEMENT_KEY_TYPE ] = self.TRANSACTION_ELEMENT_TYPE_EXPENSE 
+        elif( ( details == 'CHECK' ) or ( details == 'DSLIP' ) ):
+            if( float( amount ) >= 0 ):
+                translatedValues[ self.TRANSACTION_ELEMENT_KEY_TYPE ] = self.TRANSACTION_ELEMENT_TYPE_INCOME 
+            else:
+                translatedValues[ self.TRANSACTION_ELEMENT_KEY_TYPE ] = self.TRANSACTION_ELEMENT_TYPE_EXPENSE 
         else:
             print( 'ERROR - unexpected value in Details column of CSV Chase Checking input line:', details )
 
         # Posting Date
-        postingDate = _values[ 1 ]
         timestamp = datetime.datetime.strptime( postingDate, self.CSV_CHASE_DATE_FORMAT ).timestamp()
         translatedValues[ self.TRANSACTION_ELEMENT_KEY_DATE ] = timestamp
 
         # Description
-        translatedValues[ self.TRANSACTION_ELEMENT_KEY_DESCRIPTION ] = _values[ 2 ]
+        translatedValues[ self.TRANSACTION_ELEMENT_KEY_DESCRIPTION ] = description
 
         # Amount
-        translatedValues[ self.TRANSACTION_ELEMENT_KEY_AMOUNT ] = float( _values[ 3 ] )
+        translatedValues[ self.TRANSACTION_ELEMENT_KEY_AMOUNT ] = float( amount )
 
         # Balance
-        balance = _values[ 5 ].strip()
         if( balance != '' ):
             translatedValues[ self.TRANSACTION_ELEMENT_KEY_BALANCE ] = float( balance )
 
@@ -139,17 +147,25 @@ class TransactionManager:
     def translateCsvChaseCreditValues( self, _values ):
         translatedValues = {}
 
-        # Type
         transactionType = _values[ 0 ]
+        transactionDate = _values[ 1 ]
+        description = _values[ 3 ]
+        amount = _values[ 4 ]
+
+        # Type
         if( transactionType == 'Sale' ):
             translatedValues[ self.TRANSACTION_ELEMENT_KEY_TYPE ] = self.TRANSACTION_ELEMENT_TYPE_EXPENSE 
         elif( transactionType == 'Return' ):
             translatedValues[ self.TRANSACTION_ELEMENT_KEY_TYPE ] = self.TRANSACTION_ELEMENT_TYPE_INCOME 
+        elif( transactionType == 'Payment' ):
+            if( float( amount ) >= 0 ):
+                translatedValues[ self.TRANSACTION_ELEMENT_KEY_TYPE ] = self.TRANSACTION_ELEMENT_TYPE_INCOME 
+            else:
+                translatedValues[ self.TRANSACTION_ELEMENT_KEY_TYPE ] = self.TRANSACTION_ELEMENT_TYPE_EXPENSE 
         else:
             print( 'ERROR - unexpected value in Type column of CSV Chase Credit input line:', transactionType )
 
         # Trans Date
-        transactionDate = _values[ 1 ]
         timestamp = datetime.datetime.strptime( transactionDate, self.CSV_CHASE_DATE_FORMAT ).timestamp()
         translatedValues[ self.TRANSACTION_ELEMENT_KEY_DATE ] = timestamp
 
@@ -157,10 +173,10 @@ class TransactionManager:
 
 
         # Description
-        translatedValues[ self.TRANSACTION_ELEMENT_KEY_DESCRIPTION ] = _values[ 3 ]
+        translatedValues[ self.TRANSACTION_ELEMENT_KEY_DESCRIPTION ] = description
 
         # Amount
-        translatedValues[ self.TRANSACTION_ELEMENT_KEY_AMOUNT ] = float( _values[ 4 ] )
+        translatedValues[ self.TRANSACTION_ELEMENT_KEY_AMOUNT ] = float( amount )
 
         # Add an empty balance element
         translatedValues[ self.TRANSACTION_ELEMENT_KEY_BALANCE ] = ''
