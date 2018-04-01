@@ -12,7 +12,7 @@ from .. import utilities
 class Manager:
     
     def createSectionModel( self, _sectionParameters ):
-        result = {}
+        sectionModel = IncomeVsExpensesSectionModel()
 
         mongoClient = MongoClient( 'financial-analysis-mongodb' )
         db = mongoClient.financial_analysis_db
@@ -28,7 +28,7 @@ class Manager:
             startDateString = monthlyEvaluation[ 'start_date' ]
             endDateString = monthlyEvaluation[ 'end_date' ]
 
-            resultMonthlyEvaluation = {}
+            monthlyEvaluationModel = MonthlyEvaluationModel()
 
             NONE = 'none'
             if( startDateString == NONE ):
@@ -49,7 +49,7 @@ class Manager:
             results = db.test_transactions.find( minDateFindClause ).sort( 'date', pymongo.ASCENDING ).limit( 1 )
             minDateTransaction = results.next()
             minDate = dateManager.timestampToDate( minDateTransaction[ 'date' ] )
-            resultMonthlyEvaluation[ 'start_date' ] = minDate
+            monthlyEvaluationModel.startDate = minDate
 
             maxDateFindClause = {
                 'date': {
@@ -59,12 +59,11 @@ class Manager:
             results = db.test_transactions.find( maxDateFindClause ).sort( 'date', pymongo.DESCENDING ).limit( 1 )
             maxDateTransaction = results.next()
             maxDate = dateManager.timestampToDate( maxDateTransaction[ 'date' ] )
-            resultMonthlyEvaluation[ 'end_date' ] = maxDate
+            monthlyEvaluationModel.endDate = maxDate
 
             monthStart = dateManager.getDate( minDate.year, minDate.month, 1 )
             monthEnd = dateManager.advanceToEndOfMonth( monthStart )
 
-            months = []
             monthStartTimestamp = dateManager.dateToTimestamp( monthStart )
             endDateTimestamp = dateManager.dateToTimestamp( maxDate )
             while( monthStartTimestamp < endDateTimestamp ):
@@ -81,17 +80,17 @@ class Manager:
                     barChartFilename = 'monthly-bar-' + str( monthStart.year ) + '-' + str( monthStart.month )
                     pathToBarChartFile = self.createDistinctExpensesBarChart( distinctExpenses, barChartFilename )
 
-                    month = {}
-                    month[ 'start' ] = monthStart
-                    month[ 'end' ] = monthEnd
-                    month[ 'total_income' ] = totalIncome
-                    month[ 'total_expenses' ] = totalExpenses
-                    month[ 'distinct_expenses' ] = distinctExpenses
-                    month[ 'distinct_income_sources' ] = distinctIncomeSources
-                    month[ 'path_to_pie_chart_file' ] = pathToPieChartFile
-                    month[ 'path_to_bar_chart_file' ] = pathToBarChartFile
+                    monthModel = MonthModel()
+                    monthModel.start = monthStart
+                    monthModel.end = monthEnd
+                    monthModel.totalIncome = totalIncome
+                    monthModel.totalExpenses = totalExpenses
+                    monthModel.distinctExpenses = distinctExpenses
+                    monthModel.distinctIncomeSources = distinctIncomeSources
+                    monthModel.pathToPieChartFile = pathToPieChartFile
+                    monthModel.pathToBarChartFile = pathToBarChartFile
 
-                    months.append( month )
+                    monthlyEvaluationModel.months.append( monthModel )
 
                 except InvalidResultException as errorMessage:
                     print( 'ERROR calculating totals:', errorMessage )
@@ -99,18 +98,12 @@ class Manager:
                 monthStart = dateManager.advanceToNextMonth( monthStart )
                 monthStartTimestamp = dateManager.dateToTimestamp( monthStart )
 
-            monthlyIncomeVsExpensesBarChartFilename = self.createMonthlyIncomeVsExpensesBarChart( months )
-            monthlyNetBalanceLineChartFilename = self.createNetBalanceLineChart( months )
+            monthlyEvaluationModel.monthlyIncomeVsExpensesBarChartFilename = self.createMonthlyIncomeVsExpensesBarChart( monthlyEvaluationModel.months )
+            monthlyEvaluationModel.monthlyNetBalanceLineChartFilename = self.createNetBalanceLineChart( monthlyEvaluationModel.months )
 
-            resultMonthlyEvaluation[ 'months' ] = months
-            resultMonthlyEvaluation[ 'monthly_income_vs_expenses_bar_chart_filename' ] = monthlyIncomeVsExpensesBarChartFilename
-            resultMonthlyEvaluation[ 'monthly_net_balance_line_chart_filename' ] = monthlyNetBalanceLineChartFilename
+            sectionModel.monthlyEvaluations.append( monthlyEvaluationModel )
 
-            resultMonthlyEvaluations.append( resultMonthlyEvaluation )
-
-        result[ 'monthly_evaluations' ] = resultMonthlyEvaluations
-
-        return result
+        return sectionModel
 
     def createDistinctExpensesBarChart( self, _distinctExpenses, _filename ):
         print( "creating distinct expenses bar chart" )
@@ -129,7 +122,6 @@ class Manager:
         pyplot.xticks( yAxis, labels, rotation=90 )
         pyplot.ylabel( 'Amount' )
         pyplot.tight_layout()
-        #plt.title('')
 
         utils = utilities.Utilities()
         pathToFile = utils.getWorkspaceDirectory() + "/" + _filename
@@ -145,10 +137,10 @@ class Manager:
         expensesTotals = []
         labels = []
         for month in _months:
-            incomeTotals.append( month[ 'total_income' ] )
-            expensesTotals.append( month[ 'total_expenses' ] * ( -1 ) )
+            incomeTotals.append( month.totalIncome )
+            expensesTotals.append( month.totalExpenses * ( -1 ) )
 
-            monthStart = month[ 'start' ]
+            monthStart = month.start
             dateManager = dates.DateManager()
             
             label = dateManager.monthAsString( monthStart.month ) + ' ' + str( monthStart.year )
@@ -201,15 +193,12 @@ class Manager:
             print( "month:", month )
             x.append( index )
             index += 1
-            totalIncome = month[ 'total_income' ]
-            totalExpenses = month[ 'total_expenses' ]
-            netSpending = totalIncome + totalExpenses
+            netSpending = month.totalIncome + month.totalExpenses
             y.append( netSpending )
 
             dateManager = dates.DateManager()
 
-            startDate = month[ 'start' ]
-            label = dateManager.monthAsString( startDate.month ) + '-' + str( startDate.year )
+            label = dateManager.monthAsString( month.start.month ) + '-' + str( month.start.year )
             labels.append( label )
     
         pyplot.plot( x, y )
@@ -351,7 +340,7 @@ class Manager:
 
         _outputFile.write( '\\section{Income vs Expenses}' )
 
-        self.writeMonthlyEvaluationsToFile( _outputFile, _sectionModel[ 'monthly_evaluations' ] )
+        self.writeMonthlyEvaluationsToFile( _outputFile, _sectionModel.monthlyEvaluations )
 
     def writeMonthlyEvaluationsToFile( self, _outputFile, _monthlyEvaluations ):
         for monthlyEvaluation in _monthlyEvaluations:
@@ -360,31 +349,30 @@ class Manager:
     def writeMonthlyEvaluationToFile( self, _outputFile, _monthlyEvaluation ):
         dateManager = dates.DateManager()
 
-        startDate = _monthlyEvaluation[ 'start_date' ]
+        startDate = _monthlyEvaluation.startDate
         startDateString = dateManager.monthAsString( startDate.month ) + '-' + str( startDate.year )
-        endDate = _monthlyEvaluation[ 'end_date' ]
+        endDate = _monthlyEvaluation.endDate
         endDateString = dateManager.monthAsString( endDate.month ) + '-' + str( endDate.year )
 
         dateLine = "\n\\subsection{Monthly Evaluation: " + startDateString + " to " + endDateString + "}"
         _outputFile.write( dateLine  )
 
-        incomeVsExpensesBarChartFile = _monthlyEvaluation[ 'monthly_income_vs_expenses_bar_chart_filename' ]
+        incomeVsExpensesBarChartFile = _monthlyEvaluation.monthlyIncomeVsExpensesBarChartFilename
         _outputFile.write( "\n\\includegraphics[width=\linewidth]{" + incomeVsExpensesBarChartFile + "}" )
 
-        netBalanceLineChartFilename = _monthlyEvaluation[ 'monthly_net_balance_line_chart_filename' ]
+        netBalanceLineChartFilename = _monthlyEvaluation.monthlyNetBalanceLineChartFilename
         _outputFile.write( "\n\\includegraphics[width=\linewidth]{" + netBalanceLineChartFilename + "}" )
 
         _outputFile.write( "\n\\newpage" )
 
-        self.writeMonthsToFile( _outputFile, _monthlyEvaluation[ 'months' ] )
+        self.writeMonthsToFile( _outputFile, _monthlyEvaluation.months )
 
     def writeMonthsToFile( self, _outputFile, _months ):
         for month in _months:
             self.writeMonthToFile( _outputFile, month )
 
     def writeMonthToFile( self, _outputFile, _month ):
-        monthStart = _month[ 'start' ]
-        pathToBarChartFile = _month[ 'path_to_bar_chart_file' ]
+        monthStart = _month.start
 
         dateManager = dates.DateManager()
         title = str( monthStart.year ) + " " + dateManager.monthAsString( monthStart.month )
@@ -393,39 +381,60 @@ class Manager:
         self.writeDistinctIncomeVsExpensesListToFile( _outputFile, _month )
 
         _outputFile.write( "\n\\newpage" )
-        _outputFile.write( "\n\\includegraphics[width=\linewidth]{" + pathToBarChartFile + "}" )
+        _outputFile.write( "\n\\includegraphics[width=\linewidth]{" + _month.pathToBarChartFile + "}" )
         _outputFile.write( "\n\\newpage" )
 
     def writeDistinctIncomeVsExpensesListToFile( self, _outputFile, _month ):
-        totalIncome = _month[ 'total_income' ]
-        totalExpenses = _month[ 'total_expenses' ]
-        delta = totalIncome + totalExpenses
+        delta = _month.totalIncome + _month.totalExpenses
 
         _outputFile.write( "\n\\textbf{income}\\\\" )
 
-        for distinctIncomeSource in _month[ 'distinct_income_sources' ]:
+        for distinctIncomeSource in _month.distinctIncomeSources:
             prettyIncomeSource = distinctIncomeSource[ 'tag' ].replace( 'income_', '' ).replace( '_', ' ' )
             incomeAmount = '{0:.2f}'.format( distinctIncomeSource[ 'total' ] )
             _outputFile.write( "\n" + prettyIncomeSource + "\\hfill " + incomeAmount + "\\\\" )
 
         _outputFile.write( "\n\\noindent\\rule{\\textwidth}{1pt}" )
-        _outputFile.write( "\n\\textbf{total income:} \\hfill " + '{0:.2f}'.format( totalIncome ) + "\\\\" )
+        _outputFile.write( "\n\\textbf{total income:} \\hfill " + '{0:.2f}'.format( _month.totalIncome ) + "\\\\" )
         _outputFile.write( "\n\\noindent\\rule{\\textwidth}{1pt}" )
         _outputFile.write( "\n\\textbf{expenses}\\\\" )
 
-        for distinctExpense in _month[ 'distinct_expenses' ]:
+        for distinctExpense in _month.distinctExpenses:
             prettyExpense = distinctExpense[ 'tag' ].replace( 'expense_', '' ).replace( '_', ' ' )
             expenseAmount = '{0:.2f}'.format( distinctExpense[ 'total' ] )
             _outputFile.write( "\n" + prettyExpense + "\\hfill " + expenseAmount + "\\\\" )
 
         _outputFile.write( "\n\\noindent\\rule{\\textwidth}{1pt}" )
-        _outputFile.write( "\n\\textbf{total expenses} \\hfill " + '{0:.2f}'.format( totalExpenses ) + "\\\\" )
+        _outputFile.write( "\n\\textbf{total expenses} \\hfill " + '{0:.2f}'.format( _month.totalExpenses ) + "\\\\" )
         _outputFile.write( "\n\\noindent\\rule{\\textwidth}{1pt}" )
 
         if( delta > 0 ):
             _outputFile.write( "\n\\textbf{net}:\\hfill {\\color{ForestGreen} " + '{0:.2f}'.format( delta ) + "}\\\\" )
         else:
             _outputFile.write( "\n\\textbf{net}:\\hfill {\\color{BrickRed} " + '{0:.2f}'.format( delta ) + "}\\\\" )
+
+class IncomeVsExpensesSectionModel:
+    def __init__( self ):
+        self.monthlyEvaluations = []
+
+class MonthlyEvaluationModel:
+    def __init__( self ):
+        self.startDate = ''
+        self.endDate = ''
+        self.months = []
+        self.monthlyIncomeVsExpensesBarChartFilename = ''
+        self.monthlyNetBalanceLineChartFilename = ''
+        
+class MonthModel:
+    def __init__( self ):
+        self.start = ''
+        self.end = ''
+        self.totalIncome = 0
+        self.totalExpenses = 0
+        self.distinctExpenses = {}
+        self.distinctIncomeSources = {}
+        self.pathToPieChartFile = ''
+        self.pathToBarChartFile = ''
 
 class InvalidResultException( Exception ):
     pass
