@@ -2,7 +2,7 @@
 
 from subprocess import call
 import json
-from .section import income_vs_expenses
+from .section.incomevsexpenses import model
 from .section import balance
 from . import utilities
 
@@ -37,9 +37,10 @@ class ReportManager:
                 sectionModel = sectionManager.createSectionModel( section )
                 sectionManager.writeSectionToFile( latexOutputFile, sectionModel )
             elif( sectionType == 'income_vs_expenses' ):
-                sectionManager = income_vs_expenses.Manager()
-                sectionModel = sectionManager.createSectionModel( section )
-                sectionManager.writeSectionToFile( latexOutputFile, sectionModel )
+                builder = model.IncomeVsExpensesSectionModelBuilder()
+                sectionModel = builder.buildSectionModel( section )
+                latexWriter = latex.LatexFileBuilder()
+                latexWriter.writeIncomeVsExpensesSectionToFile( latexOutputFile, sectionModel )
             else:
                 print( 'Unknown section type:', sectionType )
     
