@@ -12,7 +12,7 @@ from .. import utilities
 class Manager:
     
     def createSectionModel( self, _sectionParameters ):
-        result = {}
+        result = IncomeVsExpensesSectionModel()
 
         mongoClient = MongoClient( 'financial-analysis-mongodb' )
         db = mongoClient.financial_analysis_db
@@ -28,7 +28,7 @@ class Manager:
             startDateString = monthlyEvaluation[ 'start_date' ]
             endDateString = monthlyEvaluation[ 'end_date' ]
 
-            resultMonthlyEvaluation = {}
+            resultMonthlyEvaluation = MonthlyEvaluation()
 
             NONE = 'none'
             if( startDateString == NONE ):
@@ -49,7 +49,7 @@ class Manager:
             results = db.test_transactions.find( minDateFindClause ).sort( 'date', pymongo.ASCENDING ).limit( 1 )
             minDateTransaction = results.next()
             minDate = dateManager.timestampToDate( minDateTransaction[ 'date' ] )
-            resultMonthlyEvaluation[ 'start_date' ] = minDate
+            resultMonthlyEvaluation.startDate = minDate
 
             maxDateFindClause = {
                 'date': {
@@ -59,7 +59,7 @@ class Manager:
             results = db.test_transactions.find( maxDateFindClause ).sort( 'date', pymongo.DESCENDING ).limit( 1 )
             maxDateTransaction = results.next()
             maxDate = dateManager.timestampToDate( maxDateTransaction[ 'date' ] )
-            resultMonthlyEvaluation[ 'end_date' ] = maxDate
+            resultMonthlyEvaluation.endDate = maxDate
 
             monthStart = dateManager.getDate( minDate.year, minDate.month, 1 )
             monthEnd = dateManager.advanceToEndOfMonth( monthStart )
@@ -81,15 +81,15 @@ class Manager:
                     barChartFilename = 'monthly-bar-' + str( monthStart.year ) + '-' + str( monthStart.month )
                     pathToBarChartFile = self.createDistinctExpensesBarChart( distinctExpenses, barChartFilename )
 
-                    month = {}
-                    month[ 'start' ] = monthStart
-                    month[ 'end' ] = monthEnd
-                    month[ 'total_income' ] = totalIncome
-                    month[ 'total_expenses' ] = totalExpenses
-                    month[ 'distinct_expenses' ] = distinctExpenses
-                    month[ 'distinct_income_sources' ] = distinctIncomeSources
-                    month[ 'path_to_pie_chart_file' ] = pathToPieChartFile
-                    month[ 'path_to_bar_chart_file' ] = pathToBarChartFile
+                    month = Month()
+                    month.start = monthStart
+                    month.end = monthEnd
+                    month.totalIncome = totalIncome
+                    month.totalExpenses = totalExpenses
+                    month.distinctExpenses = distinctExpenses
+                    month.distinctIncomeSources = distinctIncomeSources
+                    month.pathToPieChartFile = pathToPieChartFile
+                    month.pathToBarChartFile = pathToBarChartFile
 
                     months.append( month )
 
@@ -102,13 +102,11 @@ class Manager:
             monthlyIncomeVsExpensesBarChartFilename = self.createMonthlyIncomeVsExpensesBarChart( months )
             monthlyNetBalanceLineChartFilename = self.createNetBalanceLineChart( months )
 
-            resultMonthlyEvaluation[ 'months' ] = months
-            resultMonthlyEvaluation[ 'monthly_income_vs_expenses_bar_chart_filename' ] = monthlyIncomeVsExpensesBarChartFilename
-            resultMonthlyEvaluation[ 'monthly_net_balance_line_chart_filename' ] = monthlyNetBalanceLineChartFilename
+            resultMonthlyEvaluation.months = months
+            resultMonthlyEvaluation.monthlyIncomeVsExpensesBarChartFilename = monthlyIncomeVsExpensesBarChartFilename
+            resultMonthlyEvaluation.monthlyNetBalanceLineChartFilename = monthlyNetBalanceLineChartFilename
 
-            resultMonthlyEvaluations.append( resultMonthlyEvaluation )
-
-        result[ 'monthly_evaluations' ] = resultMonthlyEvaluations
+            result.monthlyEvaluations.append( resultMonthlyEvaluation )
 
         return result
 
@@ -121,9 +119,10 @@ class Manager:
         amounts = []
         labels = []
         for distinctExpense in _distinctExpenses:
-            prettyExpense = distinctExpense[ 'tag' ].replace( 'expense_', '' ).replace( '_', ' ' )
+            prettyExpense = distinctExpense.tag.replace( 'expense_', '' ).replace( '_', ' ' )
             labels.append( prettyExpense )
-            amounts.append( distinctExpense[ 'total' ] * ( -1 ) )
+            #amounts.append( distinctExpense[ 'total' ] * ( -1 ) )
+            amounts.append( distinctExpense.total * ( -1 ) )
          
         pyplot.bar( yAxis, amounts, align='center', alpha=0.5 )
         pyplot.xticks( yAxis, labels, rotation=90 )
@@ -145,10 +144,13 @@ class Manager:
         expensesTotals = []
         labels = []
         for month in _months:
-            incomeTotals.append( month[ 'total_income' ] )
-            expensesTotals.append( month[ 'total_expenses' ] * ( -1 ) )
+            #incomeTotals.append( month[ 'total_income' ] )
+            incomeTotals.append( month.totalIncome )
+            #expensesTotals.append( month[ 'total_expenses' ] * ( -1 ) )
+            expensesTotals.append( month.totalExpenses * ( -1 ) )
 
-            monthStart = month[ 'start' ]
+            #monthStart = month[ 'start' ]
+            monthStart = month.start
             dateManager = dates.DateManager()
             
             label = dateManager.monthAsString( monthStart.month ) + ' ' + str( monthStart.year )
@@ -201,36 +203,23 @@ class Manager:
             print( "month:", month )
             x.append( index )
             index += 1
-            totalIncome = month[ 'total_income' ]
-            totalExpenses = month[ 'total_expenses' ]
+            #totalIncome = month[ 'total_income' ]
+            totalIncome = month.totalIncome
+            #totalExpenses = month[ 'total_expenses' ]
+            totalExpenses = month.totalExpenses
             netSpending = totalIncome + totalExpenses
             y.append( netSpending )
 
             dateManager = dates.DateManager()
 
-            startDate = month[ 'start' ]
+            #startDate = month[ 'start' ]
+            startDate = month.start
             label = dateManager.monthAsString( startDate.month ) + '-' + str( startDate.year )
             labels.append( label )
     
-        #dateManager = dates.DateManager()
-
-        #pyplot.gca().xaxis.set_major_formatter( matplotlib.dates.DateFormatter( dateManager.getDateFormat() ) )
-        #pyplot.gca().xaxis.set_major_locator( matplotlib.dates.DayLocator() )
-    
         pyplot.plot( x, y )
-        #pyplot.gcf().autofmt_xdate()
     
-        #firstMonth = _months[ 0 ][ 'start' ]
-        #lastMonth = _months[ -1 ][ 'start' ]
-        #pyplot.gca().set_xlim( [ firstMonth, lastMonth ] )
-        #pyplot.gca().set_xticks( [ firstMonth, lastMonth ] )
         pyplot.xticks( x, labels )
-    
-        #pyplot.gca().set_ylim( [ 0, 12000 ] )
-        #pyplot.gca().set_yticks( [ 0, 3000, 6000, 9000, 12000 ] )
-
-
-
 
         pyplot.ylabel( 'net balance' )
         
@@ -247,8 +236,10 @@ class Manager:
         labels = []
         sizes = []
         for distinctExpense in _distinctExpenses:
-            labels.append( distinctExpense[ 'tag' ] )
-            sizes.append( distinctExpense[ 'total' ] / _totalExpenses )
+            #labels.append( distinctExpense[ 'tag' ] )
+            labels.append( distinctExpense.tag )
+            #sizes.append( distinctExpense[ 'total' ] / _totalExpenses )
+            sizes.append( distinctExpense.total / _totalExpenses )
          
             pyplot.pie( sizes, labels=labels, autopct='%1.1f%%', shadow=True, startangle=140)
              
@@ -320,9 +311,12 @@ class Manager:
         distinctIncomeSources = []
         for result in aggregationResults:
             aggregationResultCount += 1
-            distinctIncomeSource = {}
-            distinctIncomeSource[ 'tag' ] = result[ '_id' ]
-            distinctIncomeSource[ 'total' ] = result[ 'total' ]
+            #distinctIncomeSource = {}
+            distinctIncomeSource = CategorizedTotal()
+            #distinctIncomeSource[ 'tag' ] = result[ '_id' ]
+            distinctIncomeSource.tag = result[ '_id' ]
+            #distinctIncomeSource[ 'total' ] = result[ 'total' ]
+            distinctIncomeSource.total = result[ 'total' ]
 
             distinctIncomeSources.append( distinctIncomeSource )
 
@@ -356,9 +350,12 @@ class Manager:
         distinctExpenses = []
         for result in aggregationResults:
             aggregationResultCount += 1
-            distinctExpense = {}
-            distinctExpense[ 'tag' ] = result[ '_id' ]
-            distinctExpense[ 'total' ] = result[ 'total' ]
+            #distinctExpense = {}
+            distinctExpense = CategorizedTotal()
+            #distinctExpense[ 'tag' ] = result[ '_id' ]
+            distinctExpense.tag = result[ '_id' ]
+            #distinctExpense[ 'total' ] = result[ 'total' ]
+            distinctExpense.total = result[ 'total' ]
 
             distinctExpenses.append( distinctExpense )
 
@@ -369,7 +366,8 @@ class Manager:
 
         _outputFile.write( '\\section{Income vs Expenses}' )
 
-        self.writeMonthlyEvaluationsToFile( _outputFile, _sectionModel[ 'monthly_evaluations' ] )
+        #self.writeMonthlyEvaluationsToFile( _outputFile, _sectionModel[ 'monthly_evaluations' ] )
+        self.writeMonthlyEvaluationsToFile( _outputFile, _sectionModel.monthlyEvaluations )
 
     def writeMonthlyEvaluationsToFile( self, _outputFile, _monthlyEvaluations ):
         for monthlyEvaluation in _monthlyEvaluations:
@@ -378,31 +376,38 @@ class Manager:
     def writeMonthlyEvaluationToFile( self, _outputFile, _monthlyEvaluation ):
         dateManager = dates.DateManager()
 
-        startDate = _monthlyEvaluation[ 'start_date' ]
+        #startDate = _monthlyEvaluation[ 'start_date' ]
+        startDate = _monthlyEvaluation.startDate
         startDateString = dateManager.monthAsString( startDate.month ) + '-' + str( startDate.year )
-        endDate = _monthlyEvaluation[ 'end_date' ]
+        #endDate = _monthlyEvaluation[ 'end_date' ]
+        endDate = _monthlyEvaluation.endDate
         endDateString = dateManager.monthAsString( endDate.month ) + '-' + str( endDate.year )
 
         dateLine = "\n\\subsection{Monthly Evaluation: " + startDateString + " to " + endDateString + "}"
         _outputFile.write( dateLine  )
 
-        incomeVsExpensesBarChartFile = _monthlyEvaluation[ 'monthly_income_vs_expenses_bar_chart_filename' ]
+        #incomeVsExpensesBarChartFile = _monthlyEvaluation[ 'monthly_income_vs_expenses_bar_chart_filename' ]
+        incomeVsExpensesBarChartFile = _monthlyEvaluation.monthlyIncomeVsExpensesBarChartFilename
         _outputFile.write( "\n\\includegraphics[width=\linewidth]{" + incomeVsExpensesBarChartFile + "}" )
 
-        netBalanceLineChartFilename = _monthlyEvaluation[ 'monthly_net_balance_line_chart_filename' ]
+        #netBalanceLineChartFilename = _monthlyEvaluation[ 'monthly_net_balance_line_chart_filename' ]
+        netBalanceLineChartFilename = _monthlyEvaluation.monthlyNetBalanceLineChartFilename
         _outputFile.write( "\n\\includegraphics[width=\linewidth]{" + netBalanceLineChartFilename + "}" )
 
         _outputFile.write( "\n\\newpage" )
 
-        self.writeMonthsToFile( _outputFile, _monthlyEvaluation[ 'months' ] )
+        #self.writeMonthsToFile( _outputFile, _monthlyEvaluation[ 'months' ] )
+        self.writeMonthsToFile( _outputFile, _monthlyEvaluation.months )
 
     def writeMonthsToFile( self, _outputFile, _months ):
         for month in _months:
             self.writeMonthToFile( _outputFile, month )
 
     def writeMonthToFile( self, _outputFile, _month ):
-        monthStart = _month[ 'start' ]
-        pathToBarChartFile = _month[ 'path_to_bar_chart_file' ]
+        #monthStart = _month[ 'start' ]
+        monthStart = _month.start
+        #pathToBarChartFile = _month[ 'path_to_bar_chart_file' ]
+        pathToBarChartFile = _month.pathToBarChartFile
 
         dateManager = dates.DateManager()
         title = str( monthStart.year ) + " " + dateManager.monthAsString( monthStart.month )
@@ -415,15 +420,20 @@ class Manager:
         _outputFile.write( "\n\\newpage" )
 
     def writeDistinctIncomeVsExpensesListToFile( self, _outputFile, _month ):
-        totalIncome = _month[ 'total_income' ]
-        totalExpenses = _month[ 'total_expenses' ]
+        #totalIncome = _month[ 'total_income' ]
+        totalIncome = _month.totalIncome
+        #totalExpenses = _month[ 'total_expenses' ]
+        totalExpenses = _month.totalExpenses
         delta = totalIncome + totalExpenses
 
         _outputFile.write( "\n\\textbf{income}\\\\" )
 
-        for distinctIncomeSource in _month[ 'distinct_income_sources' ]:
-            prettyIncomeSource = distinctIncomeSource[ 'tag' ].replace( 'income_', '' ).replace( '_', ' ' )
-            incomeAmount = '{0:.2f}'.format( distinctIncomeSource[ 'total' ] )
+        #for distinctIncomeSource in _month[ 'distinct_income_sources' ]:
+        for distinctIncomeSource in _month.distinctIncomeSources:
+            #prettyIncomeSource = distinctIncomeSource[ 'tag' ].replace( 'income_', '' ).replace( '_', ' ' )
+            prettyIncomeSource = distinctIncomeSource.tag.replace( 'income_', '' ).replace( '_', ' ' )
+            #incomeAmount = '{0:.2f}'.format( distinctIncomeSource[ 'total' ] )
+            incomeAmount = '{0:.2f}'.format( distinctIncomeSource.total )
             _outputFile.write( "\n" + prettyIncomeSource + "\\hfill " + incomeAmount + "\\\\" )
 
         _outputFile.write( "\n\\noindent\\rule{\\textwidth}{1pt}" )
@@ -431,9 +441,12 @@ class Manager:
         _outputFile.write( "\n\\noindent\\rule{\\textwidth}{1pt}" )
         _outputFile.write( "\n\\textbf{expenses}\\\\" )
 
-        for distinctExpense in _month[ 'distinct_expenses' ]:
-            prettyExpense = distinctExpense[ 'tag' ].replace( 'expense_', '' ).replace( '_', ' ' )
-            expenseAmount = '{0:.2f}'.format( distinctExpense[ 'total' ] )
+        #for distinctExpense in _month[ 'distinct_expenses' ]:
+        for distinctExpense in _month.distinctExpenses:
+            #prettyExpense = distinctExpense[ 'tag' ].replace( 'expense_', '' ).replace( '_', ' ' )
+            prettyExpense = distinctExpense.tag.replace( 'expense_', '' ).replace( '_', ' ' )
+            #expenseAmount = '{0:.2f}'.format( distinctExpense[ 'total' ] )
+            expenseAmount = '{0:.2f}'.format( distinctExpense.total )
             _outputFile.write( "\n" + prettyExpense + "\\hfill " + expenseAmount + "\\\\" )
 
         _outputFile.write( "\n\\noindent\\rule{\\textwidth}{1pt}" )
@@ -444,6 +457,34 @@ class Manager:
             _outputFile.write( "\n\\textbf{net}:\\hfill {\\color{ForestGreen} " + '{0:.2f}'.format( delta ) + "}\\\\" )
         else:
             _outputFile.write( "\n\\textbf{net}:\\hfill {\\color{BrickRed} " + '{0:.2f}'.format( delta ) + "}\\\\" )
+
+class IncomeVsExpensesSectionModel:
+    def __init__( self ):
+        self.monthlyEvaluations = []
+
+class MonthlyEvaluation:
+    def __init__( self ):
+        self.startDate = None
+        self.endDate = None
+        self.months = []
+        self.monthlyIncomeVsExpensesBarChartFilename = None
+        self.monthlyNetBalanceLineChartFilename = None
+    
+class Month:
+    def __init__( self ):
+        self.start = None
+        self.end = None
+        self.totalIncome = None
+        self.totalExpenses = None
+        self.distinctExpenses = None
+        self.distinctIncomeSources = None
+        self.pathToPieChartFile = None
+        self.pathToBarChartFile = None
+
+class CategorizedTotal:
+    def __init__( self ):
+        self.tag = None
+        self.total = None
 
 class InvalidResultException( Exception ):
     pass

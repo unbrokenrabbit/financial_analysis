@@ -5,3 +5,6 @@
 __pycache__/
 project/temp/
 
+.cscope/
+cscope.out
+
